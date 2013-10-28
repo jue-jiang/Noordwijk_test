@@ -1,0 +1,33 @@
+--- uml_switch.c	2013-08-21 02:04:52.000000000 +0200
++++ uml_switch/uml_switch.c	2006-02-27 22:02:36.000000000 +0100
+@@ -226,6 +226,11 @@
+     perror("accept");
+     return;
+   }
++  if(fcntl(new, F_SETFL, O_NONBLOCK) < 0){
++    perror("fcntl - setting O_NONBLOCK");
++    close(new);
++    return;
++  }
+   add_fd(new);
+ }
+ 
+@@ -462,10 +467,18 @@
+     perror("setsockopt");
+     exit(1);
+   }
++  if(fcntl(connect_fd, F_SETFL, O_NONBLOCK) < 0){
++    perror("Setting O_NONBLOCK on connection fd");
++    exit(1);
++  }
+   if((data_fd = socket(PF_UNIX, SOCK_DGRAM, 0)) < 0){
+     perror("socket");
+     exit(1);
+   }
++  if(fcntl(data_fd, F_SETFL, O_NONBLOCK) < 0){
++    perror("Setting O_NONBLOCK on data fd");
++    exit(1);
++  }
+ 
+   if(compat_v0) bind_sockets_v0(connect_fd, ctl_socket, data_fd, data_socket);
+   else bind_sockets(connect_fd, ctl_socket, data_fd);

@@ -1,0 +1,53 @@
+Test Suite per il TCP Noordwijk
+
+
+## Installazione
+
+
+$ cd Documenti
+$ git clone https://github.com/kronat/Noordwijk-test.git
+$ git clone https://github.com/kronat/linux.git
+$ cd Noordwijk-test
+$ ln -s ../linux .
+
+Step 2: Scaricare le immagini del filesystem
+$ cd Documenti/Noordwijk-test
+$ mkdir fs
+$ cd fs
+
+Aprire https://drive.google.com/folderview?id=0B25torSWoyRYZnBsVHVDblpfaVE&usp=sharing
+scaricare tutti i file dentro la cartella fs/
+
+
+## Compilazione kernel
+
+Step 1: Compilazione kernel per client
+  ==> Usiamo 3.9.7-tc, già compilato, così velocizziamo
+
+Step 2: Compilazione kernel per il sender (server)
+
+$ cd Documenti/linux
+$ git fetch origin
+$ git checkout -b noord origin/noord # Necessario solo una volta
+$ cp ../Noordwijk-test/config_uml .config
+$ ARCH=um make linux -j3    # -j{numero processori+1}
+
+Dare invio e accettare tutte le scelte di default (se se ne presentano)
+... lasciare lavorare
+
+$ cp linux ../Noordwijk-test/linux-sender
+
+## Avvio della suite di test
+
+Brevi istruzioni sull'utilizzo:
+
+- start.sh: script per l'avvio della suite di test. Necessita di UML installato sulla macchina
+
+- linux-3.9.7-tc: kernel linux di serie per le macchine uml
+- linux-sender: kernel linux con TCPN come default
+
+Per testare eventuali modifiche sul kernel occorre ricompilarlo e sostituire il corrispondente linux-sender.
+
+Una volta avviate le macchine virtuali (login: root) nella home sono presenti i tool impiegati per i test.
+
+NOTA: spegnere le macchine virtuali col comando halt e *NON* chiudere i terminali!
