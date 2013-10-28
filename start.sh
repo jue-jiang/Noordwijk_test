@@ -8,7 +8,7 @@ sleep 1
 gnome-terminal --title="switch2" --command="./uml_switch/uml_switch -unix /tmp/switch2" &
 sleep 1
 
-gnome-terminal --title="client_receive" --command="./$KERNEL mem=512M ubd0=fs/client_receiver.ext3 umid=local1 eth0=daemon,,unix,/tmp/switch1" &
+gnome-terminal --title="client_receive" --command="./$KERNEL mem=512M ubd0=fs/client_receive.ext3 umid=local1 eth0=daemon,,unix,/tmp/switch1" &
 sleep 1
 gnome-terminal --title="forwarder" --command="./$KERNEL mem=512M ubd0=fs/forwarder.ext3 umid=local2 eth0=daemon,,unix,/tmp/switch1 eth1=daemon,,unix,/tmp/switch2" &
 sleep 1
