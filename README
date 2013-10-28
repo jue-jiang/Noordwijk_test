@@ -51,3 +51,20 @@ Per testare eventuali modifiche sul kernel occorre ricompilarlo e sostituire il 
 Una volta avviate le macchine virtuali (login: root) nella home sono presenti i tool impiegati per i test.
 
 NOTA: spegnere le macchine virtuali col comando halt e *NON* chiudere i terminali!
+
+
+## Cambiare i valori del congestion control (server side)
+
+
+Vedere cosa è attivo:
+
+# cat /proc/sys/net/ipv4/tcp_congestion_control
+
+Impostare cubic:
+
+# echo "cubic" > /proc/sys/net/ipv4/tcp_congestion_control
+
+
+Impostare noord:
+
+# echo "noord" > /proc/sys/net/ipv4/tcp_congestion_control"
